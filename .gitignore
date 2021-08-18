@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+
+/.vs/DemoRepoAPi/DesignTimeBuild
+/.vs
+/bin/Debug/netcoreapp3.1
+/obj
