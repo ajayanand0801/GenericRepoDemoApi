@@ -27,8 +27,35 @@ namespace DemoRepoAPi.Controllers
             employee.CreatedDate = DateTime.Now;
             employee.UpdatedDate = DateTime.Now;
             var result= await _employeeService.SaveEmployee(employee);
-            return Ok($"record successfully saved with employeeId : {result}");
+            string msg= result ? $"record saved successfully { employee.EmpNumber}" :"something went wrong";
+            return Ok(msg);
 
         }
+
+        [HttpGet, Route("")]
+        public async Task<IActionResult> GetEmployee()
+        {
+            var result = await _employeeService.GetEmployees();
+            return Ok(result);
+
+        }
+        [HttpGet, Route("{id}")]
+        public async Task<IActionResult> GetEmployee(Guid id)
+        {           
+            var result = await _employeeService.GetEmployeeByID(id);
+            return Ok(result);
+
+        }
+
+        [HttpDelete, Route("{id}")]
+        public async Task<IActionResult> DeleteEmployee(Guid id)
+        {
+            var isDeleted = await _employeeService.DeleteEmployee(id);
+            string msg = isDeleted ? "record deleted " : "something went wrong";
+            return Ok(msg);
+        }
+
+
+      
     }
 }

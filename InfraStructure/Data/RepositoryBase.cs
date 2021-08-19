@@ -20,34 +20,49 @@ namespace DemoRepoAPi.InfraStructure.Data
         }
         public async Task<bool> Add(T entity)
         {
-             await _dbcontext.AddAsync(entity);
+             await _dbSet.AddAsync(entity);
             return true;
             
         }
 
         public Task<IEnumerable<T>> All()
         {
-            throw new NotImplementedException();
+            var data = _dbSet.ToList();
+           return  Task.FromResult(data.AsEnumerable());
         }
 
         public Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var result = _dbSet.Find(id.ToString());
+            if (result==null)
+                return Task.FromResult(false);
+
+            _dbSet.Remove(result);
+
+            return Task.FromResult(true);
+
         }
 
         public Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            //var result = _dbcontext.Employee.Where(predicate) ;
+           throw new NotImplementedException();
         }
 
-        public Task<T> GetById(Guid id)
+        public   Task<T> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var result = _dbSet.Find(id.ToString());
+            return Task.FromResult(result);
+           
+            
         }
 
-        public Task<bool> Upsert(T entity)
+        public  Task<bool> Update(T entity)
         {
-            throw new NotImplementedException();
+            var result = _dbSet.Find(entity);
+            _dbSet.Update(result);
+            return  Task.FromResult(true);
+           
         }
     }
 }

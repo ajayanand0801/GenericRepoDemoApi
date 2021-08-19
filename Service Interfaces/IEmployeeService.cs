@@ -8,6 +8,10 @@ namespace DemoRepoAPi.Service_Interfaces
 {
     public interface IEmployeeService
     {
-        Task<int> SaveEmployee(Employee employee);
+        Task<bool> SaveEmployee(Employee employee);
+        Task<bool> UpdateEmployee(Employee employee);
+        Task<bool> DeleteEmployee(Guid id);
+        Task<Employee> GetEmployeeByID(Guid id);
+        Task<IEnumerable<Employee>> GetEmployees();
     }
 }
